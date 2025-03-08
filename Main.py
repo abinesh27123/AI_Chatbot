@@ -12,8 +12,8 @@ genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
 # Streamlit UI
-st.title("💬 AI Chatbot using Gemini API")
-st.markdown("This chatbot is powered by Google's Gemini AI.")
+st.title("🤖 AI Friend")
+st.markdown("Chat with your AI assistant")
 
 # Chat history
 if "messages" not in st.session_state:
@@ -21,7 +21,7 @@ if "messages" not in st.session_state:
 
 # Display chat history
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
+    with st.chat_message(message["role"], avatar="🧑‍💻" if message["role"] == "user" else "🤖"):
         st.markdown(message["content"])
 
 # User input
@@ -29,7 +29,7 @@ user_input = st.chat_input("Type your message here...")
 if user_input:
     # Display user message
     st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar="🧑‍💻"):
         st.markdown(user_input)
     
     # Get AI response
@@ -38,5 +38,5 @@ if user_input:
     
     # Display AI response
     st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar="🤖"):
         st.markdown(bot_reply)
